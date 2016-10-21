@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>MokoQml.qml</file>
+        <file>PlayListModel.qml</file>
+        <file>VkLogin.qml</file>
+        <file>NiceButton.qml</file>
+        <file>ImageView.qml</file>
+        <file>play-button.png</file>
+        <file>ScrollBar.qml</file>
+        <file>SelectAlbum.qml</file>
+        <file>AlbumView.qml</file>
+        <file>AlbumListModel.qml</file>
+    </qresource>
+</RCC>
