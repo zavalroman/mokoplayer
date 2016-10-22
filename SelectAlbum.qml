@@ -12,6 +12,8 @@ Window {
     color: "#ffffff"
     title: qsTr("Select Album")
 
+    property var home
+
     signal newCurrentIndex(int index)
     signal wantOpenAlbum(int index)
     signal needClearPlaylist()
@@ -19,6 +21,9 @@ Window {
     signal tlDoubleClicked(int index)
     signal needPause()
 
+    function setHome(path) {
+        home = path;
+    }
     function alAppend(newAlbum) {
         albumPath.model.append(newAlbum)
     }
@@ -115,16 +120,15 @@ Window {
                     id: listCover
                     anchors.fill: parent
                     fillMode: Image.PreserveAspectFit
-                    source: "file:///home/roman/develop/mokoplayer/covers/" + coverPath
+                    source: home + "album-covers/" + coverPath
                 }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: console.log(albumPath.currentIndex)
-                    onWheel:
-                                {
-                               if( wheel.angleDelta.y > 0 ) albumPath.decrementCurrentIndex();
-                               else albumPath.incrementCurrentIndex();
-                                }
+                    onWheel: {
+                        if( wheel.angleDelta.y > 0 ) albumPath.decrementCurrentIndex();
+                        else albumPath.incrementCurrentIndex();
+                    }
                 }
             } //delegate
         }//PathView

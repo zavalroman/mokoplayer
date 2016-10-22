@@ -1,6 +1,8 @@
 #ifndef QMLHANDLER_H
 #define QMLHANDLER_H
 
+#define MOKOU "/develop/mokou/"
+
 #include <QObject>
 #include <QVariant>
 
@@ -30,8 +32,11 @@ signals:
 private:
     QObject *qml;
     Mokou *mokou;
+    QString home;
 
     QObject * selectQml;
+
+    void setHome(QString path);
 };
 
 #endif // QMLHANDLER_H

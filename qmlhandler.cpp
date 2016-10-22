@@ -1,5 +1,7 @@
+
 #include "qmlhandler.h"
 #include "mokou.h"
+#include "userid.h"
 
 #include <QDebug>
 
@@ -7,6 +9,10 @@ QmlHandler::QmlHandler(QObject *parent)
 {
     qml = parent;
     mokou = new Mokou();
+    //"file:///home/roman/develop/mokoplayer/covers/" + newData["cover"]
+    UserId userId;
+    home = "file://" + QString(userId.getHome()) + MOKOU;
+    setHome(home);
 
     connect(qml, SIGNAL(playClicked(int)),            mokou, SLOT(buttonPlay(int)));                      //play button pressed
     connect(qml, SIGNAL(plDoubleClicked(int)),    mokou, SLOT(playFromPL(int)));    //playlist double clicked
@@ -25,7 +31,7 @@ QmlHandler::QmlHandler(QObject *parent)
     connect(mokou, SIGNAL(newAlbumMap(QVariantMap)),      this, SLOT(alAppend(QVariantMap)));
     connect(mokou, SIGNAL(newTrackData(QVariantMap)), this, SLOT(fillPlayerData(QVariantMap)));
 
-   // mokou->openAlbum(0); // 0 - select last added album
+    //mokou->openAlbum(0); // 0 - select last added album
     //mokou->openAlbum(1); // 1 -select first added album
     //mokou->openAlbum(3);
     QString pic = "200px-Mokou.png";
@@ -33,10 +39,17 @@ QmlHandler::QmlHandler(QObject *parent)
     setCover(pic);
 }
 
+void QmlHandler::setHome(QString path)
+{
+    QMetaObject::invokeMethod(qml, "setHome", Q_ARG(QVariant, QVariant::fromValue(path)));
+}
+
 void QmlHandler::createSelectRelations(QObject* selectRoot)
 {
     selectQml = selectRoot;
     mokou->selectAlbums();
+
+    QMetaObject::invokeMethod(selectQml, "setHome", Q_ARG(QVariant, QVariant::fromValue(home)));
 
     connect(selectQml, SIGNAL(needClearPlaylist()), this, SLOT(clearModel()));
 

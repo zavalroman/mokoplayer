@@ -15,49 +15,53 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainmokou.cpp \
-    ibpp/_dpb.cpp \
-    ibpp/_ibpp.cpp \
-    ibpp/_ibs.cpp \
-    ibpp/_rb.cpp \
-    ibpp/_spb.cpp \
-    ibpp/_tpb.cpp \
-    ibpp/array.cpp \
-    ibpp/blob.cpp \
-    ibpp/database.cpp \
-    ibpp/date.cpp \
-    ibpp/dbkey.cpp \
-    ibpp/events.cpp \
-    ibpp/exception.cpp \
-    ibpp/row.cpp \
-    ibpp/service.cpp \
-    ibpp/statement.cpp \
-    ibpp/time.cpp \
-    ibpp/transaction.cpp \
-    ibpp/user.cpp \
     firebird.cpp \
     login.cpp \
-    qt-json-master/json.cpp \
     vkapi.cpp \
     qmlhandler.cpp \
-    mokou.cpp
+    mokou.cpp \
+    ibpp/core/_dpb.cpp \
+    ibpp/core/_ibpp.cpp \
+    ibpp/core/_ibs.cpp \
+    ibpp/core/_rb.cpp \
+    ibpp/core/_spb.cpp \
+    ibpp/core/_tpb.cpp \
+    ibpp/core/all_in_one.cpp \
+    ibpp/core/array.cpp \
+    ibpp/core/blob.cpp \
+    ibpp/core/database.cpp \
+    ibpp/core/date.cpp \
+    ibpp/core/dbkey.cpp \
+    ibpp/core/events.cpp \
+    ibpp/core/exception.cpp \
+    ibpp/core/row.cpp \
+    ibpp/core/service.cpp \
+    ibpp/core/statement.cpp \
+    ibpp/core/time.cpp \
+    ibpp/core/transaction.cpp \
+    ibpp/core/user.cpp \
+    selecthandler.cpp \
+    qt-json/json.cpp
 
 HEADERS  += mainmokou.h \
-    ibpp/_ibpp.h \
-    ibpp/ibase.h \
-    ibpp/iberror.h \
-    ibpp/ibpp.h \
     firebird.h \
     login.h \
-    qt-json-master/json.h \
     vkapi.h \
     qmlhandler.h \
-    mokou.h
+    mokou.h \
+    ibpp/core/_ibpp.h \
+    ibpp/core/ibase.h \
+    ibpp/core/iberror.h \
+    ibpp/core/ibpp.h \
+    selecthandler.h \
+    qt-json/json.h \
+    userid.h
 
 FORMS    += mainmokou.ui \
     login.ui
 
 DISTFILES += \
-    ibpp/libibpp.so \
+    #ibpp/core/libibpp.so \
     MokoQml.qml \
     PlayListModel.qml
 

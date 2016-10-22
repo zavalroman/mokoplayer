@@ -2,7 +2,7 @@
 #define FIREBIRD_H
 
 #include <QString>
-#include "ibpp/ibpp.h"
+#include "ibpp/core/ibpp.h"
 
 class Firebird
 {

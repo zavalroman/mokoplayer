@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QDebug>
 #include <QEventLoop>
-#include <QTimer>
+//#include <QTimer>
 
 Mokou::Mokou(QObject *parent) : QObject(parent)
 {

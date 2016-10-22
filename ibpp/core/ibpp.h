@@ -90,6 +90,7 @@
 #include <exception>
 #include <string>
 #include <vector>
+#include <cstring> // added 22 october 2016 by zavalroman
 
 namespace IBPP
 {

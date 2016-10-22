@@ -11,6 +11,8 @@ Window {
     color: "#ffffff"
     title: qsTr("Mokou Player")
 
+    property var home
+
     signal sendLoginUrl(string str)
     signal playClicked(int id)
     signal plDoubleClicked(int id)
@@ -18,12 +20,16 @@ Window {
     signal stopClicked()
     signal selectOpened(QtObject obj)
 
+    function setHome(path) {
+        home = path;
+    }
     function plAppend(newElement) {
         plView.model.append(newElement)
     }
     function fillPlayerData(newData) {
         songPosBar.maximumValue = newData["posbar"]
-        cover.source = "file:///home/roman/develop/mokoplayer/covers/" + newData["cover"]
+        //cover.source = "file:///home/roman/develop/mokoplayer/covers/" + newData["cover"]
+        cover.source = home + "album-covers/" + newData["cover"]
         currentArtist.text = newData["artist"]
         currentTitle.text = newData["title"]
         console.log("hello")
@@ -32,7 +38,8 @@ Window {
         songPosBar.setValue(value)
     }
     function setCover(file) { // actually for mokou only
-        cover.source = "file:///home/roman/develop/mokoplayer/covers/" + file
+        //cover.source = "file:///home/roman/develop/mokoplayer/covers/" + file
+        cover.source = home + "album-covers/" + file
     }
     function changeSongStatusToPlay(id) {
        //currentArtist.text = plView.model.get(id-1).artist
@@ -257,7 +264,8 @@ Window {
             Layout.fillWidth: true
             Layout.fillHeight: true
             fillMode: Image.PreserveAspectFit
-            source: "file:///home/roman/develop/mokoplayer/prohodi.jpg"
+            //source: "file:///home/roman/develop/mokoplayer/prohodi.jpg"
+            source: home + "group-avatar/prohodi.jpg"
             opacity: 0.2
         }
         Component {

@@ -5,7 +5,6 @@
         <file>VkLogin.qml</file>
         <file>NiceButton.qml</file>
         <file>ImageView.qml</file>
-        <file>play-button.png</file>
         <file>ScrollBar.qml</file>
         <file>SelectAlbum.qml</file>
         <file>AlbumView.qml</file>
