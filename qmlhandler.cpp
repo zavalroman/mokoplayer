@@ -31,6 +31,9 @@ QmlHandler::QmlHandler(QObject *parent)
     connect(mokou, SIGNAL(newAlbumMap(QVariantMap)),      this, SLOT(alAppend(QVariantMap)));
     connect(mokou, SIGNAL(newTrackData(QVariantMap)), this, SLOT(fillPlayerData(QVariantMap)));
 
+    connect(mokou, SIGNAL(newTrackListElement(QVariantMap)), this, SLOT(tlAppend(QVariantMap)));
+    connect(mokou, SIGNAL(newCircleMap(QVariantMap)), this, SLOT(clAppend(QVariantMap)));
+
     //mokou->openAlbum(0); // 0 - select last added album
     //mokou->openAlbum(1); // 1 -select first added album
     //mokou->openAlbum(3);
@@ -47,6 +50,7 @@ void QmlHandler::setHome(QString path)
 void QmlHandler::createSelectRelations(QObject* selectRoot)
 {
     selectQml = selectRoot;
+    mokou->selectCircles();
     mokou->selectAlbums();
 
     QMetaObject::invokeMethod(selectQml, "setHome", Q_ARG(QVariant, QVariant::fromValue(home)));
@@ -57,14 +61,17 @@ void QmlHandler::createSelectRelations(QObject* selectRoot)
     connect(selectQml, SIGNAL(needTrackList(int)), mokou, SLOT(addAlbumToTL(int)));
     connect(selectQml, SIGNAL(tlDoubleClicked(int)), mokou, SLOT(playFromTL(int)));
     connect(selectQml, SIGNAL(needPause()), mokou, SLOT(pausePlayer2()));
-
-    connect(mokou, SIGNAL(newTrackListElement(QVariantMap)), this, SLOT(tlAppend(QVariantMap)));
 }
 
 void QmlHandler::clearModel()
 {
     mokou->clearOrder();
     QMetaObject::invokeMethod(qml, "clearModel", Q_ARG(QVariant, QVariant::fromValue(0)));
+}
+
+void QmlHandler::clAppend(QVariantMap circle)
+{
+    QMetaObject::invokeMethod(selectQml, "clAppend", Q_ARG(QVariant, QVariant::fromValue(circle)));
 }
 
 void QmlHandler::alAppend(QVariantMap album)

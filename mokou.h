@@ -28,6 +28,7 @@ signals:
     void newAlbumMap(QVariantMap);
     void newTrackListElement(QVariantMap);
     void newTrackData(QVariantMap);
+    void newCircleMap(QVariantMap);
 
 public slots:
 
@@ -56,7 +57,7 @@ private:
     QString statement;
     int currentRow;
     int plSize;
-    int currentAlbum, preIndex, albumsCount;
+    //int currentAlbum, preIndex, albumsCount;
 
     QList<int> plOrder;
     QList<int> tlOrder;

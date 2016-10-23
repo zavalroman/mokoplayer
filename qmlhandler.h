@@ -27,6 +27,8 @@ private slots:
     void clearModel();
     void tlAppend(QVariantMap);
     void fillPlayerData(QVariantMap);
+    void clAppend(QVariantMap);
+
 signals:
 
 private:

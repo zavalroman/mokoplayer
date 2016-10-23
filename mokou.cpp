@@ -312,10 +312,13 @@ void Mokou::openAlbum(int id)
 void Mokou::selectCircles()
 {
     QVariantMap circleMap;
-    QList<QStringList> circleList;
+    QStringList circleList;
     statement = "SELECT circle.name_unic FROM circle";
     fb->query(statement, &circleList);
-
+    for (int i = 0; i < circleList.size(); i++) {
+        circleMap.insert("circle", circleList.at(i));
+        emit newCircleMap(circleMap);
+    }
 }
 
 void Mokou::selectAlbums()
@@ -324,16 +327,15 @@ void Mokou::selectAlbums()
     QList<QStringList> albumList;
     statement = "SELECT album.title_unic,circle.name_unic FROM album INNER JOIN circle ON circle.id = album.circle_id";
     fb->query(statement, &albumList);
-    albumsCount = albumList.size(); // ?
-    for (int i = 0; i < albumList.size(); i++) {        
-        albumMap.clear();
+    //albumsCount = albumList.size();
+    for (int i = 0; i < albumList.size(); i++) {
         albumMap.insert("album", albumList[i].at(0));
         albumMap.insert("coverPath", QString::number(i+1));
         albumMap.insert("circle", albumList[i].at(1));
         emit newAlbumMap(albumMap);
     }
-    currentAlbum = 0;
-    preIndex = 0;
+    //currentAlbum = 0;
+    //preIndex = 0;
 }
 
 void Mokou::moveAlbumIndex(int pathIndex)

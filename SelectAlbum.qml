@@ -243,7 +243,7 @@ Window {
             }
 
             pathItemCount: 6
-            model: albumModel
+            model: circleModel
 
             path: Path {
                 startX: circleView.width / 2
@@ -266,9 +266,6 @@ Window {
                 height: 50
                 opacity: PathView.opacity
                 ColumnLayout {
-                    Text {
-                        text: album
-                    }
                     Text {
                         text: circle
                     }
