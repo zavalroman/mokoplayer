@@ -19,10 +19,11 @@ public:
     QString user_id, token;
 
 private slots:
+    /*
     void on_webView_loadProgress(int progress);
 
     void on_webView_urlChanged(const QUrl &arg1);
-
+    */
 private:
     Ui::Login *ui;
 

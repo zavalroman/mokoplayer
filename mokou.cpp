@@ -81,6 +81,9 @@ void Mokou::playUrl(QString &url)
 
 void Mokou::buttonPlay(int plRow)
 {
+    if (player2->state() == QMediaPlayer::PlayingState) {
+        player2->pause();
+    }
     if (player->state() == QMediaPlayer::PausedState) {
         player->play();
         emit songStarted(currentRow);
@@ -306,13 +309,22 @@ void Mokou::openAlbum(int id)
     addAlbumToPL(id);
 }
 
+void Mokou::selectCircles()
+{
+    QVariantMap circleMap;
+    QList<QStringList> circleList;
+    statement = "SELECT circle.name_unic FROM circle";
+    fb->query(statement, &circleList);
+
+}
+
 void Mokou::selectAlbums()
 {
     QVariantMap albumMap;
     QList<QStringList> albumList;
     statement = "SELECT album.title_unic,circle.name_unic FROM album INNER JOIN circle ON circle.id = album.circle_id";
     fb->query(statement, &albumList);
-    albumsCount = albumList.size();
+    albumsCount = albumList.size(); // ?
     for (int i = 0; i < albumList.size(); i++) {        
         albumMap.clear();
         albumMap.insert("album", albumList[i].at(0));

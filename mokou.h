@@ -13,6 +13,7 @@ class Mokou : public QObject
     Q_OBJECT
 public:
     explicit Mokou(QObject *parent = 0);
+    void selectCircles();
     void selectAlbums();
     void clearOrder();
 

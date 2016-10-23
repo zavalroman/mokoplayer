@@ -20,15 +20,19 @@ Window {
     signal needTrackList(int index)
     signal tlDoubleClicked(int index)
     signal needPause()
+    signal circleSelected(int index)
 
     function setHome(path) {
         home = path;
     }
+    function clAppend(newCircle) {
+        circleModel.append(newCircle)
+    }
     function alAppend(newAlbum) {
-        albumPath.model.append(newAlbum)
+        albumModel.append(newAlbum)
     }
     function tlAppend(newTrack) {
-        trackListModel.append(newTrack)
+        trackModel.append(newTrack)
     }
     function calcActualAlbumIndex() {
         var index = albumInfo.currentIndex
@@ -136,10 +140,13 @@ Window {
 
 /********************LIST_MODELS*******************/
     ListModel {
+        id: circleModel
+    }
+    ListModel {
         id: albumModel
     }
     ListModel {
-        id: trackListModel
+        id: trackModel
     }
 
 /*********************TIMER**********************/
@@ -147,7 +154,7 @@ Window {
         id: albumInfoTimer
         interval: 1500
         onTriggered: {
-            trackListModel.clear()
+            trackModel.clear()
             needTrackList( calcActualAlbumIndex() )
         }
     }
@@ -316,7 +323,7 @@ Window {
         ListView {
             id: tlView
             anchors.fill: parent
-            model: trackListModel
+            model: trackModel
             delegate: songDelegate
             //highlight: Rectangle { color: "#eA6060"; radius: 5; opacity: 0.4 }//#f2ebeb #eaeaea
             //highlightMoveVelocity: 1500.0
