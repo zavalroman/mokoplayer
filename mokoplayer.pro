@@ -66,11 +66,12 @@ DISTFILES += \
     PlayListModel.qml
 
 QMAKE_CXXOUTPUT = -o
-QMAKE_CXXFLAGS += -DIBPP_LINUX
+unix: QMAKE_CXXFLAGS += -DIBPP_LINUX
+win32: QMAKE_CXXFLAGS += -DIBPP_WINDOWS
 QMAKE_CXXFLAGS += -W -Wall -fPIC
 QMAKE_CXXFLAGS += -g -DDEBUG
 
-LIBS += -lfbclient -lcrypt -lm -ldl -lpthread # dependancies for shared library
+unix: LIBS += -lfbclient -lcrypt -lm -ldl -lpthread # dependancies for shared library
 
 RESOURCES += \
     qml.qrc
