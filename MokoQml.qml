@@ -265,7 +265,7 @@ Window {
             Layout.fillHeight: true
             fillMode: Image.PreserveAspectFit
             //source: "file:///home/roman/develop/mokoplayer/prohodi.jpg"
-            source: home + "group-avatar/prohodi.jpg"
+            source: home + "group-avatars/prohodi.jpg"
             opacity: 0.2
         }
         Component {

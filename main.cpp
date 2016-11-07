@@ -2,7 +2,7 @@
 //#include <QApplication>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include <QtWebEngine/QtWebEngine>
 #include "qmlhandler.h"
 
 int main(int argc, char *argv[])
@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
     w.show();
 */
     QGuiApplication app(argc, argv);
+    QtWebEngine::initialize();
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/MokoQml.qml")));

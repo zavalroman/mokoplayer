@@ -32,7 +32,20 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "_ibpp.cpp"
+#undef _UNICODE //убедиться в необходимости
+#undef UNICODE
+
+#ifdef IBPP_WINDOWS
+    #include <windows.h>
+#endif
+
+#ifdef IBPP_WINDOWS //убедиться в необходимости
+    #include "_ibpp_win.cpp"
+#endif
+#ifdef IBPP_LINUX
+    #include "_ibpp.cpp"
+#endif
+
 #include "_dpb.cpp"
 #include "_ibs.cpp"
 #include "_rb.cpp"

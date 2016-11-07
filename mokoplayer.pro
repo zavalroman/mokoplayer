@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------
 
-#QT       += core gui webkitwidgets multimediawidgets
-QT += qml quick multimediawidgets #webkitwidgets
+
+QT += qml quick multimediawidgets webengine
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,26 +20,26 @@ SOURCES += main.cpp\
     vkapi.cpp \
     qmlhandler.cpp \
     mokou.cpp \
-    ibpp/core/_dpb.cpp \
-    ibpp/core/_ibpp.cpp \
-    ibpp/core/_ibs.cpp \
-    ibpp/core/_rb.cpp \
-    ibpp/core/_spb.cpp \
-    ibpp/core/_tpb.cpp \
+    #ibpp/core/_dpb.cpp \
+    #ibpp/core/_ibpp.cpp \
+    #ibpp/core/_ibs.cpp \
+    #ibpp/core/_rb.cpp \
+    #ibpp/core/_spb.cpp \
+    #ibpp/core/_tpb.cpp \
     ibpp/core/all_in_one.cpp \
-    ibpp/core/array.cpp \
-    ibpp/core/blob.cpp \
-    ibpp/core/database.cpp \
-    ibpp/core/date.cpp \
-    ibpp/core/dbkey.cpp \
-    ibpp/core/events.cpp \
-    ibpp/core/exception.cpp \
-    ibpp/core/row.cpp \
-    ibpp/core/service.cpp \
-    ibpp/core/statement.cpp \
-    ibpp/core/time.cpp \
-    ibpp/core/transaction.cpp \
-    ibpp/core/user.cpp \
+    #ibpp/core/array.cpp \
+    #ibpp/core/blob.cpp \
+    #ibpp/core/database.cpp \
+    #ibpp/core/date.cpp \
+    #ibpp/core/dbkey.cpp \
+    #ibpp/core/events.cpp \
+    #ibpp/core/exception.cpp \
+    #ibpp/core/row.cpp \
+    #ibpp/core/service.cpp \
+    #ibpp/core/statement.cpp \
+    #ibpp/core/time.cpp \
+    #ibpp/core/transaction.cpp \
+    #ibpp/core/user.cpp \
     selecthandler.cpp \
     qt-json/json.cpp
 
@@ -49,9 +49,9 @@ HEADERS  += mainmokou.h \
     vkapi.h \
     qmlhandler.h \
     mokou.h \
-    ibpp/core/_ibpp.h \
-    ibpp/core/ibase.h \
-    ibpp/core/iberror.h \
+    #ibpp/core/_ibpp.h \
+    #ibpp/core/ibase.h \
+    #ibpp/core/iberror.h \
     ibpp/core/ibpp.h \
     selecthandler.h \
     qt-json/json.h \
@@ -66,12 +66,18 @@ DISTFILES += \
     PlayListModel.qml
 
 QMAKE_CXXOUTPUT = -o
-unix: QMAKE_CXXFLAGS += -DIBPP_LINUX
-win32: QMAKE_CXXFLAGS += -DIBPP_WINDOWS
-QMAKE_CXXFLAGS += -W -Wall -fPIC
-QMAKE_CXXFLAGS += -g -DDEBUG
+unix: {
+    QMAKE_CXXFLAGS += -DIBPP_LINUX
+    QMAKE_CXXFLAGS += -W -Wall -fPIC
+    QMAKE_CXXFLAGS += -g -DDEBUG
+    LIBS += -lfbclient -lcrypt -lm -ldl -lpthread # dependancies for shared library
+}
+win32: {
+    QMAKE_CXXFLAGS += -DIBPP_WINDOWS
+    DEFINES += IBPP_WINDOWS=value
+    LIBS += Advapi32.lib #thanx for https://blog.cppse.nl/firebird-ibpp-non-unicode-project
+}
 
-unix: LIBS += -lfbclient -lcrypt -lm -ldl -lpthread # dependancies for shared library
 
 RESOURCES += \
     qml.qrc

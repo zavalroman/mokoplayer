@@ -2,7 +2,13 @@
 #define FIREBIRD_H
 
 #include <QString>
-#include "ibpp/core/ibpp.h"
+
+#ifdef IBPP_WINDOWS //убедиться в необходимости
+    #include "_ibpp_win.cpp"
+#endif
+#ifdef IBPP_LINUX
+    #include "ibpp/core/ibpp.h"
+#endif
 
 class Firebird
 {

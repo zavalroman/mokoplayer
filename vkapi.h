@@ -2,7 +2,7 @@
 #define VKAPI_H
 
 #include "qt-json/json.h"
-#include <QJsonObject>
+//#include <QJsonObject>
 #include <QNetworkAccessManager>
 
 using QtJson::JsonObject;
