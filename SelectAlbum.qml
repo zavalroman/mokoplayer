@@ -46,6 +46,18 @@ Window {
         }
         return index;
     }
+    function calcActualCircleIndex() { //объединить с предыдущей функцией, сделав универсальную
+        var index = circleView.currentIndex
+        var count = circleView.model.count
+        index += 3
+        if (index >= count) {
+            index -= count;
+        }
+        if (index == 0) {
+            index = count
+        }
+        return index;
+    }
     function changeButtonMark() {
         if (pausePlayMark.text == "||") {
             pausePlayMark.text = ">"
@@ -146,6 +158,9 @@ Window {
         id: albumModel
     }
     ListModel {
+        id: filteredAlbumModel
+    }
+    ListModel {
         id: trackModel
     }
 
@@ -221,6 +236,26 @@ Window {
         }//PathView
     }
 
+/*********************TIMER**********************/
+   Timer {
+       id: circeFilterTimer
+       interval: 1000
+       onTriggered: {
+           filteredAlbumModel.clear()
+           var cId = calcActualCircleIndex()
+           var filter = new String ( circleModel.get(cId)["circle"] )
+
+           for (var i=0; i<albumModel.count; i++) {
+               var str = new String ( albumModel.get(i)["circle"] )
+               if (str.localeCompare(filter)==0) {
+                   filteredAlbumModel.append(albumModel.get(i))
+               }
+           }
+           albumInfo.model = filteredAlbumModel
+           albumPath.model = filteredAlbumModel
+       }
+   }
+
 /*******************CIRCLES_LIST****************/
     Rectangle { // CIRCLES
         x: parent.width / 40
@@ -238,8 +273,7 @@ Window {
             }
     */
             onCurrentIndexChanged: {
-                //newCurrentIndex(currentIndex)
-                //albumPath.currentIndex = currentIndex
+                circeFilterTimer.restart()
             }
 
             pathItemCount: 6
