@@ -72,6 +72,9 @@ private:
     void addAlbumToPL(int);
     void sendPlElement(QVariantMap);
     void playUrl(QString&);
+    void fadeInStart(QMediaPlayer*);
+    void fadeOut(QMediaPlayer*);
+    void delay(int msec);
 };
 
 #endif // MOKOU_H

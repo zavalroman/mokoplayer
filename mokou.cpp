@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QDebug>
 #include <QEventLoop>
-//#include <QTimer>
+#include <QTimer>
 
 Mokou::Mokou(QObject *parent) : QObject(parent)
 {
@@ -55,8 +55,9 @@ Mokou::Mokou(QObject *parent) : QObject(parent)
 void Mokou::pausePlayer2()
 {
     if (player2->state() == QMediaPlayer::PausedState) {
-        player2->play();
+        fadeInStart(player2);
     } else {
+        fadeOut(player2);
         player2->pause();
     }
 }
@@ -75,17 +76,18 @@ void Mokou::playUrl(QString &url)
 
     player->setMedia(QUrl(url));
     player->setVolume(80);
-    player->play();
+    fadeInStart(player);
     //emit songStarted(currentRow);
 }
 
 void Mokou::buttonPlay(int plRow)
 {
     if (player2->state() == QMediaPlayer::PlayingState) {
+        fadeOut(player2);
         player2->pause();
     }
     if (player->state() == QMediaPlayer::PausedState) {
-        player->play();
+        fadeInStart(player);
         emit songStarted(currentRow);
     }
     if (player->state() == QMediaPlayer::StoppedState) {
@@ -95,12 +97,14 @@ void Mokou::buttonPlay(int plRow)
 
 void Mokou::buttonPause()
 {
+    fadeOut(player);
     player->pause();
     emit songPaused(currentRow);
 }
 
 void Mokou::buttonStop()
 {
+    fadeOut(player);
     player->stop();
     emit songChanged(currentRow);
 }
@@ -118,6 +122,7 @@ void Mokou::playNextInList(QMediaPlayer::MediaStatus status)
     if (status == QMediaPlayer::EndOfMedia) {
         emit songChanged(currentRow);
         if (currentRow + 2 > plSize) { // заменить на plOrder.size?
+            fadeOut(player);
             player->stop();
             currentRow = 0;
             qDebug() << "reach end of the playlist";
@@ -125,17 +130,21 @@ void Mokou::playNextInList(QMediaPlayer::MediaStatus status)
         }
         currentRow++;
         selectVkTrack( plOrder.at(currentRow) );
+        emit songStarted(currentRow);
+        playUrl(audioUrl);
     }
 }
 
 void Mokou::playFromPL(int plRow) // main window's playlist
 {
     if (player->state() == QMediaPlayer::PlayingState) { // iru ka
+        fadeOut(player);
         player->stop();
         //emit songPaused(currentRow);
     }
 
     if (player2->state() == QMediaPlayer::PlayingState) {
+        fadeOut(player2);
         player2->stop();
     }
 
@@ -152,6 +161,7 @@ void Mokou::playFromPL(int plRow) // main window's playlist
 void Mokou::playFromTL(int tlRow) // select window's tracklist
 {
     if (player->state() == QMediaPlayer::PlayingState) {
+        fadeOut(player);
         player->pause();
         emit songPaused(currentRow);
     }
@@ -165,7 +175,7 @@ void Mokou::playFromTL(int tlRow) // select window's tracklist
     selectVkTrack( tlOrder.at(tlRow) );
     player2->setMedia(QUrl(audioUrl));
     player2->setVolume(80);
-    player2->play();
+    fadeInStart(player2);
 
 }
 
@@ -349,14 +359,33 @@ void Mokou::clearOrder()
 {
     plSize = 0;
     plOrder.clear();
+
 }
 
-/*
+void Mokou::fadeInStart(QMediaPlayer *pr)
+{
+    pr->setVolume(0);
+    delay(100);
+    pr->play();
+    for (int i=10; i<=100; i+=10) {
+        delay(80);
+        pr->setVolume(i);
+    }
+}
+
+void Mokou::fadeOut(QMediaPlayer *pr)
+{
+    for (int i=pr->volume(); i>0; i-=10) {
+        delay(110-(i*i/100));
+        pr->setVolume(i);
+    }
+}
+
+
 void Mokou::delay(int msec)
 {
-    qDebug() << "delay:" << msec;
     QEventLoop loop;
     QTimer::singleShot(msec, &loop, SLOT(quit()));
     loop.exec();
 }
-*/
+

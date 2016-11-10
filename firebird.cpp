@@ -6,7 +6,7 @@
 Firebird::Firebird()
 {
     host = "localhost";
-    dbfile = "/fb/tohomusic.fdb";
+    dbfile = "/var/db/firebird/mokou.fdb";
     login = "SYSDBA";
     password = "masterkey";
 

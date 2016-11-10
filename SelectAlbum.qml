@@ -152,7 +152,7 @@ Window {
 /*********************TIMER**********************/
     Timer {
         id: albumInfoTimer
-        interval: 1500
+        interval: 1000
         onTriggered: {
             trackModel.clear()
             needTrackList( calcActualAlbumIndex() )
@@ -334,7 +334,7 @@ Window {
 /********************BUTTON_ADD_TO_PL**************/
     NiceButton {
         x: 800
-        y: 726
+        y: 626
         width: 100
         height: 22
         onClicked: wantOpenAlbum( calcActualAlbumIndex() )
@@ -348,7 +348,7 @@ Window {
 /********************BUTTON_NEW_PL**************/
     NiceButton {
         x: 915
-        y: 726
+        y: 626
         width: 100
         height: 22
         onClicked: {

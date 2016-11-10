@@ -20,10 +20,12 @@ void VkApi::requestAudio(QString &idCouple)
     QNetworkAccessManager * manager = new QNetworkAccessManager();
     vkReply = manager->get(QNetworkRequest(vkRequest));
     connect(vkReply, SIGNAL(finished()), this, SLOT(vkReplyParse()));
+    qDebug() << "request done";
 }
 
 void VkApi::vkReplyParse()
 {
+    qDebug() << "parse start";
     bool ok;
     JsonObject result = QtJson::parse(QString(vkReply->readAll()),ok).toMap();
 
@@ -40,6 +42,7 @@ void VkApi::vkReplyParse()
     lastSong = items["title"].toString();
 
     emit urlReceived(url);
+    qDebug() << "parse end";
 }
 
 QString &VkApi::getArtist()
