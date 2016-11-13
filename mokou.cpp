@@ -323,9 +323,12 @@ void Mokou::selectCircles()
 {
     QVariantMap circleMap;
     QStringList circleList;
+    circleMap.insert("circle", "All");
+    emit newCircleMap(circleMap);
     statement = "SELECT circle.name_unic FROM circle";
     fb->query(statement, &circleList);
     for (int i = 0; i < circleList.size(); i++) {
+        circleMap.clear();
         circleMap.insert("circle", circleList.at(i));
         emit newCircleMap(circleMap);
     }
@@ -364,10 +367,10 @@ void Mokou::clearOrder()
 
 void Mokou::fadeInStart(QMediaPlayer *pr)
 {
-    pr->setVolume(0);
-    delay(100);
+    pr->setVolume(10);
+    delay(80);
     pr->play();
-    for (int i=10; i<=100; i+=10) {
+    for (int i=20; i<=100; i+=10) {
         delay(80);
         pr->setVolume(i);
     }

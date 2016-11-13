@@ -109,6 +109,8 @@ Window {
         anchors.top: menu.bottom
         anchors.bottom: parent.bottom
         anchors.topMargin: 10
+        anchors.left: parent.left
+        anchors.leftMargin: 7
         Rectangle {
             id: playerBox
             Layout.fillWidth: true
