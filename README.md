@@ -6,4 +6,4 @@ Used third-party libraries:
 	- qt-json : https://github.com/gaudecker/qt-json
 
 upd 29.01.2017
-After closure of audio API access in vk.com developments stopped
+After closure of audio API access in vk.com development stopped
