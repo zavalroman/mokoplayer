@@ -7,3 +7,4 @@ Used third-party libraries:
 
 upd 29.01.2017
 After closure of audio API access in vk.com development stopped
+Thanks for vk.com/club71195928
